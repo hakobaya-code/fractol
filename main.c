@@ -6,7 +6,7 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 08:08:55 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/01/24 12:47:54 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:34:24 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int mouse_hook(int button, int x, int y, void *param)
 int main()
 {
     mlx = mlx_init();
+	is (mlx == NULL)
+		return (1);
     win = mlx_new_window(mlx, 800, 600, "minilibx window");
 
     mlx_key_hook(win, key_hook, NULL);

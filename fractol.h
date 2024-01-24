@@ -6,10 +6,17 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 08:09:10 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/01/24 09:00:14 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:05:56 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "mlx.h"
-#include <math.h>
+#ifndef FRACTOL_H
+# define FRACTOL_H
+
+# include <stdio.h>
+# include "minilibx-linux/mlx.h"
+# include <math.h>
+# include <unistd.h>
+# include <stdlib.h>
+
+#endif
