@@ -6,7 +6,7 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 08:08:55 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/01/24 13:34:24 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/01/25 22:50:03 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,36 +48,32 @@
 //	mlx_loop(mlx);
 //}
 
-
-#include <mlx.h>
-
-void *mlx;
-void *win;
-
-int key_hook(int keycode, void *param)
+void	error_handle(int index)
 {
-    // キーイベントが発生したときの処理
-	printf("key\n");
-    return (0);
+	if (index == 0)
+		perror("ERROR :Please enter the correct letter \n[Julia] or [Mandelbrot]\n");
+	exit(0);
 }
 
-int mouse_hook(int button, int x, int y, void *param)
+int	main(int argc, char **argv)
 {
-    // マウスクリックイベントが発生したときの処理
-	printf("click\n");
-    return (0);
-}
+	void		*mlx;
+	void		*win;
+	t_fractol	*fractol;
 
-int main()
-{
-    mlx = mlx_init();
-	is (mlx == NULL)
-		return (1);
-    win = mlx_new_window(mlx, 800, 600, "minilibx window");
-
-    mlx_key_hook(win, key_hook, NULL);
-    mlx_mouse_hook(win, mouse_hook, NULL);
-
-    mlx_loop(mlx);
-    return (0);
+	//if (argc != 2 || !(ft_strncmp(argv[1], "Julia", 6)) || !(ft_strncmp(argv[1], "Mandelbrot"), 11))
+	//	error_handle(0);
+	mlx = mlx_init();
+	if (mlx == NULL)
+		exit(1);
+	if (ft_strncmp(argv[1], "Julia", 6))
+		julia(fractol, argv);
+	if (ft_strncmp(argv[1], "mandelbrot", 6))
+		mandelbrot(fractol, argv);
+	win = mlx_new_window(mlx, 800, 600, "fract-ol");
+	mlx_key_hook(win, key_hook, NULL);
+	mlx_mouse_hook(win, mouse_hook, NULL);
+	mlx_loop(mlx);
+	mlx_destroy_window(mlx, win);
+	return (0);
 }
