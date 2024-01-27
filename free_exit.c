@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook.c                                             :+:      :+:    :+:   */
+/*   free_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/25 21:58:10 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/01/26 15:30:59 by hakobaya         ###   ########.fr       */
+/*   Created: 2024/01/26 15:49:01 by hakobaya          #+#    #+#             */
+/*   Updated: 2024/01/26 15:55:43 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	key_hook(int keycode, void *param)
+void	error_exit(int index)
 {
-	// キーイベントが発生したときの処理
-	printf("key\n");
-	return (0);
+	if (index == 0)
+		perror("ERROR : Please enter the correct letter \n[Julia] or [Mandelbrot]\n");
+	exit(0);
+	if (index == 1) // init失敗時
+		perror("ERROR : init has FAILED !!!!\n");
 }
 
-int	mouse_hook(int button, int x, int y, void *param)
+void	free_fractol(t_fractol *fractol)
 {
-	// マウスクリックイベントが発生したときの処理
-	printf("click\n");
-	return (0);
+	free(fractol);
+	fractol = NULL;
 }
 
-int	zoom_hook(int button, int x, int y)
+void	free_exit(t_fractol *fractol)
 {
-	printf("zoom\n");
-	return (0);
+	free_fractol(fractol);
+	error_exit(1);
 }

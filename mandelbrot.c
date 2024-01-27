@@ -6,19 +6,25 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 22:26:03 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/01/25 22:48:47 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/01/27 19:35:35 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	mandelbrot(t_fractol *mandelbrot, char **argv)
+void	mandelbrot(t_fractol *mandel, char **argv, int limit)
 {
-	mandelbrot->name = "mandelbrot";
-	if (argv[2] && argv[3])
+	mandel->mlx = mlx_init();
+	if (mandel->mlx == NULL)
+		free_exit(mandel);
+	mandel->win = mlx_new_window(mandel->mlx, 800, 600, "Mandelbrot");
+	while (limit-- > 0)
 	{
-		mandelbrot->real = ft_atoi(argv[2]);
-		mandelbrot->imaginary = ft_atoi(argv[3]);
+		break ;
 	}
+	mlx_key_hook(mandel->win, key_hook, NULL);
+	mlx_mouse_hook(mandel->win, key_hook, NULL);
+	mlx_destroy_window(mandel->mlx, mandel->win);
+	mlx_loop(mandel->mlx);
 	return ;
 }
