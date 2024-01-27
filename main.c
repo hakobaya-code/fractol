@@ -6,7 +6,7 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 08:08:55 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/01/27 19:36:59 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/01/27 19:38:49 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ int	main(int argc, char **argv)
 	if (argc == 2 || !(ft_strncmp(argv[1], "Mandelbrot", 11)))
 	{
 		//fractol_init(&fractol);
-		julia(&fractol, argv, Limit);
+		Mandelbrot(&fractol, argv, Limit);
 	}
 	else if ((argc == 4 || !(ft_strncmp(argv[1], "Julia"), 6)))
 	{
 		//fractol_init(&fractol);
-		mandelbrot(&fractol, argv, Limit);
+		Julia(&fractol, argv, Limit);
 	}
 	else
-
+		error_handle(0);
 	//win = mlx_new_window(mlx, 800, 600, "fract-ol");
 	//mlx_key_hook(win, key_hook, NULL);
 	//mlx_mouse_hook(win, mouse_hook, NULL);
