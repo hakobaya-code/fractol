@@ -6,7 +6,7 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 08:08:55 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/01/27 19:38:49 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/01/30 17:55:28 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,69 @@
 //	*(unsigned int*)dst = color;
 //}
 
+size_t	ft_strlen(const char *s)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	str = (char *)s;
+	while (s[i] != '\0')
+		i++;
+	return ((size_t) i);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	len;
+
+	if (s == NULL)
+		return ;
+	len = ft_strlen(s);
+	write(fd, s, len);
+}
+
 void	error_handle(int index)
 {
-	if (index == 0)
+	if (index == INPUT_ERROR)
+	{
 		ft_putstr_fd("ERROR :Please enter the correct letter\
 		\n[Julia] or [Mandelbrot]\n", 2);
+		exit(1);
+	}
+	if (index == ATOF_ERROR)
+	{
+		ft_putstr_fd("🚨ERROR🚨\nPLEASE ENTER THE CORRECT NUMBER.\
+		\n*** -2.0 < INPUT NUMBER < 2.0 ***\n", 2);
+		exit(1);
+	}
+
 	exit(0);
+}
+
+void	fractol_init(t_fractol *fractol)
+{
+
 }
 
 int	main(int argc, char **argv)
 {
-	void				*mlx;
-	void				*win;
-	static t_fractol	fractol; // static領域はNULL埋められているからゼロ埋めしなくていい
+	double	real;
+	double	imaginary;
+	//static t_fractol	fractol; // static領域はNULL埋められているからゼロ埋めしなくていい
 
+	(void)argc;
+	(void)argv;
 	if (argc == 2 || !(ft_strncmp(argv[1], "Mandelbrot", 11)))
-	{
-		//fractol_init(&fractol);
-		Mandelbrot(&fractol, argv, Limit);
-	}
+		mandelbrot();
 	else if ((argc == 4 || !(ft_strncmp(argv[1], "Julia"), 6)))
 	{
-		//fractol_init(&fractol);
-		Julia(&fractol, argv, Limit);
+		real = ft_atof(argv[2]);
+		imaginary = ft_atof(argv[3]);
+		julia(real, imaginary);
 	}
 	else
-		error_handle(0);
+		error_handle(INPUT_ERROR);
 	//win = mlx_new_window(mlx, 800, 600, "fract-ol");
 	//mlx_key_hook(win, key_hook, NULL);
 	//mlx_mouse_hook(win, mouse_hook, NULL);

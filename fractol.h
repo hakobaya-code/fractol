@@ -6,7 +6,7 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 08:09:10 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/01/27 19:35:50 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/01/30 17:53:51 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@
 # define ON_DESTROY 17
 # define ESC 53
 
+# define INPUT_ERROR 0
+# define ATOF_ERROR 1
+
 # define Limit 100
+
 
 typedef struct	s_fractol {
 	void	*mlx;        // MiniLibXの接続
@@ -55,10 +59,16 @@ int		key_hook(int keycode, void *param);
 int		mouse_hook(int button, int x, int y, void *param);
 
 // fractol
-void	julia(t_fractol *julia, char **argv, int limit);
-void	mandelbrot(t_fractol *mandelbrot, char **argv, int limit);
+void	julia(double real, double imaginary);
+void	mandelbrot(void);
 
 // free
 void	free_fractol(t_fractol *fractol);
+
+// error
+void	error_handle(int index);
+
+// util
+double	ft_atof(char *str);
 
 #endif

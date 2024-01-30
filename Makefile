@@ -1,7 +1,7 @@
 NAME = fractol
 CC = cc
 FLAGS = -Wall -Wextra -Imlx
-SRCS = main.c hook.c julia.c mandelbrot.c free_exit.c
+SRCS = main.c hook.c mandelbrot.c julia.c free_exit.c ft_atof.c
 OBJS = $(SRCS:.c=.o)
 
 LIBFT_DIR = ./libft
