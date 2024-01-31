@@ -6,15 +6,15 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 08:09:10 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/01/30 17:53:51 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/01/31 20:38:07 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# include <stdio.h>
 # include "minilibx-linux/mlx.h"
+# include <stdio.h>
 # include <math.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -30,7 +30,10 @@
 # define INPUT_ERROR 0
 # define ATOF_ERROR 1
 
-# define Limit 100
+# define TRUE 1
+# define FALSE 0
+
+# define LIMIT 100
 
 
 typedef struct	s_fractol {
@@ -39,10 +42,8 @@ typedef struct	s_fractol {
 
 	double	real;
 	double	imaginary;
-	int		x;
-	int		y;
-	//double	z;
-	//double	c;
+	double	a;
+	double	b;
 
 	double	zoom_factor;
 	int		color;

@@ -6,7 +6,7 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 08:08:55 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/01/30 17:55:28 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/01/31 19:18:19 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ void	error_handle(int index)
 	exit(0);
 }
 
-void	fractol_init(t_fractol *fractol)
-{
+//void	fractol_init(t_fractol *fractol)
+//{
 
-}
+//}
 
 int	main(int argc, char **argv)
 {
