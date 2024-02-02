@@ -6,7 +6,7 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 22:26:03 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/01/31 20:47:23 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/02/01 12:08:24 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	mandelbrot(void)
 	mandel->imaginary = 0;
 	judge = calc_mandel(mandel, LIMIT);
 	mandel->img = mlx_new_image(mandel->mlx, 800, 600);
-	mandel->addr = mlx_get_data_addr(mandel->mlx, &mandel->bits_per_pixel, &mandel->line_length, &mandel->endian);
+	mandel->addr = mlx_get_data_addr(mandel->mlx, &mandel->bits_per_pixel, \
+					&mandel->line_length, &mandel->endian);
 	mlx_key_hook(mandel->win, key_hook, NULL);
 	mlx_mouse_hook(mandel->win, key_hook, NULL);
 	mlx_destroy_window(mandel->mlx, mandel->win);
