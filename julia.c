@@ -32,7 +32,7 @@ void	calc_julia(t_fractol *j, int x, int y, int offset)
 	j->im = tmp_im;
 }
 
-void	judge_julia(t_fractol *j, double x, double y, int limit)
+void	draw_julia(t_fractol *j, double x, double y, int limit)
 {
 	int	offset;
 
@@ -73,12 +73,13 @@ void	julia(double real, double im)
 	j->real = 0;
 	j->im = 0;
 	j->bpp = 32;
+	j->scale = 1.0;
 	j->img = mlx_new_image(j->mlx, WIDTH, HEIGHT);
 	j->addr = mlx_get_data_addr(j->img, &j->bpp, &j->line_len, &j->endian);
-	judge_julia(j, 0, 0, 100);
+	draw_julia(j, 0, 0, 100);
 	mlx_put_image_to_window(j->mlx, j->win, j->img, 0, 0);
 	mlx_key_hook(j->win, key_hook, NULL);
-	mlx_mouse_hook(j->win, key_hook, NULL);
+	//mlx_mouse_hook(j->win, julia_mouse_hook, NULL);
 	//mlx_destroy_window(j->mlx, j->win);
 	mlx_loop(j->mlx);
 	return ;

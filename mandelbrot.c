@@ -12,6 +12,7 @@
 
 #include "fractol.h"
 
+
 void	calc_mandel(t_fractol *m)
 {
 	double	tmp_real;
@@ -23,7 +24,7 @@ void	calc_mandel(t_fractol *m)
 	m->im = tmp_im;
 }
 
-void	judge_mandel(t_fractol *m, int x, int y, int limit)
+void	draw_mandel(t_fractol *m, int x, int y, int limit)
 {
 	int	offset;
 
@@ -32,15 +33,16 @@ void	judge_mandel(t_fractol *m, int x, int y, int limit)
 		x = 0;
 		while (x < WIDTH)
 		{
-			m->a = (x - WIDTH / 1.5) * 4.0 / WIDTH; // x - WIDTH / 2.0 real軸の中央、原点を設定
-			m->b = (y - HEIGHT / 2.0) * 4.0 / HEIGHT; // y - HEIGHT / 2.0 imの中央、原点を設定
+			m->a = (x - WIDTH / 2.0) * m->scale + WIDTH / 2.0;
+			m->b = (y - HEIGHT / 2.0) * m->scale + HEIGHT / 2.0;
+			//m->a = (x - WIDTH / 1.5) * 4.0 / WIDTH; // x - WIDTH / 2.0 real軸の中央、原点を設定
+			//m->b = (y - HEIGHT / 2.0) * 4.0 / HEIGHT; // y - HEIGHT / 2.0 imの中央、原点を設定
 			offset = (y * m->line_len) + (x * (m->bpp / 8));
 			m->real = 0;
 			m->im = 0;
 			limit = 100;
 			while (limit-- > 0)
 				calc_mandel(m);
-			//if ((m->real * m->real + m->a) * (m->im * m->im + m->b) < 4)
 			if ((m->real * m->real) + (m->im * m->im) < 4)
 				m->color = 0xFFFFFF;
 			else
@@ -50,6 +52,16 @@ void	judge_mandel(t_fractol *m, int x, int y, int limit)
 		}
 		y++;
 	}
+}
+
+void	redraw_mandel(t_fractol *m)
+{
+	mlx_clear_window(m->mlx, m->win);
+	mlx_destroy_image(m->mlx, m->img);
+	m->img = mlx_new_image(m->mlx, WIDTH, HEIGHT);
+	m->addr = mlx_get_data_addr(m->img, &m->bpp, &m->line_len, &m->endian);
+	draw_mandel(m, 0, 0, 100);
+	mlx_put_image_to_window(m->mlx, m->win, m->img, 0, 0);
 }
 
 void	mandelbrot(void)
@@ -69,10 +81,11 @@ void	mandelbrot(void)
 	m->bpp = 32;
 	m->img = mlx_new_image(m->mlx, WIDTH, HEIGHT);
 	m->addr = mlx_get_data_addr(m->img, &m->bpp, &m->line_len, &m->endian);
-	judge_mandel(m, 0, 0, 100);
+	draw_mandel(m, 0, 0, 100);
 	mlx_put_image_to_window(m->mlx, m->win, m->img, 0, 0);
-	//mlx_key_hook(m->win, key_hook, NULL);
-	//mlx_mouse_hook(m->win, key_hook, NULL);
+	mlx_key_hook(m->win, key_hook, &m);
+	mlx_mouse_hook(m->win, mandel_mouse_hook, &m);
+	mlx_hook(m->win, 17, 0L, close_hook, m);
 	//mlx_destroy_window(m->mlx, m->win);
 	mlx_loop(m->mlx);
 	return ;

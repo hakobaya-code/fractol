@@ -6,7 +6,7 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 08:09:10 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/02/02 22:19:17 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/02/02 22:55:16 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct	s_fractol {
 	double	a;
 	double	b;
 
-	double	zoom_factor;
+	double	scale;
 	int		color;
 
 	//int		x; // pixel動かす時用 初期値0
@@ -71,9 +71,10 @@ typedef struct	s_fractol {
 }				t_fractol;
 
 // hook
-int		key_hook(t_fractol *fractol, int keycode);
-int		mouse_hook(t_fractol *fractol, int mousecode);
-int		zoom_hook(t_fractol *fractol, double ratio);
+int		key_hook(int keycode, t_fractol *fractol);
+int		mouse_hook(int mousecode, t_fractol *fractol);
+int		mandel_mouse_hook(int mousecode, t_fractol *mandel);
+int		zoom_hook(t_fractol *fractol, double scale);
 int		close_hook(t_fractol *fractol, int button, int x, int y);
 
 // fractol

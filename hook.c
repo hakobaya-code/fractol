@@ -6,7 +6,7 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 21:58:10 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/02/02 22:18:32 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/02/02 22:55:05 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,30 @@ int	key_hook(int keycode, t_fractol *fractol)
 	return (0);
 }
 
-int	mouse_hook(int mousecode, t_fractol *fractol)
+int	mandel_mouse_hook(int mousecode, t_fractol *mandel)
 {
 	// マウスクリックイベントが発生したときの処理
 	if (mousecode == SCROLL_UP)
-		zoom_hook(fractol, 1.111);
+		mandel->scale *= 1.1;
 	if (mousecode == SCROLL_DOWN)
-		zoom_hook(fractol, 0.9);
-	printf("click\n");
+		mandel->scale *= 0.9;
+	redraw_mandel(mandel);
 	return (0);
 }
 
-int	zoom_hook(t_fractol *fractol, double ratio)
+//int	julia_mouse_hook(int mousecode, t_fractol *julia)
+//{
+//	// マウスクリックイベントが発生したときの処理
+//	if (mousecode == SCROLL_UP)
+//		julia->scale *= 1.1;
+//	if (mousecode == SCROLL_DOWN)
+//		julia->scale *= 0.9;
+//	redraw_julia(julia);
+//	return (0);
+//}
+int	zoom_hook(t_fractol *fractol, double scale)
 {
-	
+
 	printf("zoom\n");
 	return (0);
 }
