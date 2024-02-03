@@ -6,7 +6,7 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 08:08:55 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/01/31 19:18:19 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/02/03 17:26:07 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int	main(int argc, char **argv)
 {
 	double	real;
 	double	imaginary;
-	//static t_fractol	fractol; // static領域はNULL埋められているからゼロ埋めしなくていい
 
 	(void)argc;
 	(void)argv;
@@ -88,10 +87,5 @@ int	main(int argc, char **argv)
 	}
 	else
 		error_handle(INPUT_ERROR);
-	//win = mlx_new_window(mlx, 800, 600, "fract-ol");
-	//mlx_key_hook(win, key_hook, NULL);
-	//mlx_mouse_hook(win, mouse_hook, NULL);
-	//mlx_loop(mlx);
-	//mlx_destroy_window(mlx, win);
 	return (0);
 }

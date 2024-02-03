@@ -6,12 +6,33 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:51:36 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/01/30 17:32:07 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/02/03 17:24:31 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <stdio.h>
+
+void	check_not_digit(char *str)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i] != '\0')
+	{
+		if (!((str[i] >= '0' && str[i] <='9') || str[i] == '.'))
+			error_handle(ATOF_ERROR);
+		if (str[i] == '.')
+			count++;
+		if (count == 2)
+			error_handle(ATOF_ERROR);
+		i++;
+	}
+}
 
 int	decimal_digit(int count)
 {
@@ -65,6 +86,7 @@ double	ft_atof(char *str)
 
 	num = 0.0;
 	minus = ft_minus(&str);
+	check_not_digit(str);
 	if (!(*str >= '0' && *str <= '9'))
 		error_handle(ATOF_ERROR);
 	while (*str != '.' && (*str >= '0' && *str <= '9'))
@@ -81,6 +103,6 @@ double	ft_atof(char *str)
 	decimal = ft_decimal(str);
 	if (*str != '\0' && !(*str >= '0' && *str <= '9'))
 		error_handle(ATOF_ERROR);
-	num =  (decimal * minus) + (num * minus);
+	num = (decimal * minus) + (num * minus);
 	return (num);
 }

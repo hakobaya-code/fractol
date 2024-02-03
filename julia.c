@@ -30,25 +30,25 @@ void	draw_julia(t_fractol *j, double x, double y, int limit)
 {
 	int	offset;
 
-	while (y < HEIGHT)
+	while (++y < HEIGHT)
 	{
 		x = 0;
-		while (x < WIDTH)
+		while (++x < WIDTH)
 		{
-			j->real = (-2 / j->scale)  + (x / WIDTH * 4.0) / j->scale;
+			j->real = (-2 / j->scale) + (x / WIDTH * 4.0) / j->scale;
 			j->im = (-2 / j->scale) + (y / HEIGHT * 4.0) / j->scale;
+			j->color = 0;
 			offset = (y * j->line_len) + (x * (j->bpp / 8));
-			limit = 100;
-			while (limit-- > 0)
+			limit = LIMIT;
+			while (limit-- > 0 && (j->real * j->real) + (j->im * j->im) < 4)
+			{
 				calc_julia(j, x, y, offset);
-			if ((j->real * j->real) + (j->im * j->im) < 4)
-				j->color = 0xFFFFFF;
-			else
-				j->color = 0x000000;
+				if ((j->real * j->real) + (j->im * j->im) < 4)
+					j->color++;
+			}
+			j->color = calc_color(j->color, LIMIT);
 			*(int *)(j->addr + offset) = j->color;
-			x++;
 		}
-		y++;
 	}
 }
 
@@ -57,7 +57,7 @@ void	zoom_julia(t_fractol *j)
 	mlx_destroy_image(j->mlx, j->img);
 	j->img = mlx_new_image(j->mlx, WIDTH, HEIGHT);
 	j->addr = mlx_get_data_addr(j->img, &j->bpp, &j->line_len, &j->endian);
-	draw_julia(j, 0, 0, 100);
+	draw_julia(j, 0, 0, LIMIT);
 	mlx_put_image_to_window(j->mlx, j->win, j->img, 0, 0);
 }
 
@@ -78,7 +78,7 @@ void	julia(double real, double im)
 	j->scale = 1.0;
 	j->img = mlx_new_image(j->mlx, WIDTH, HEIGHT);
 	j->addr = mlx_get_data_addr(j->img, &j->bpp, &j->line_len, &j->endian);
-	draw_julia(j, 0, 0, 100);
+	draw_julia(j, 0, 0, LIMIT);
 	mlx_put_image_to_window(j->mlx, j->win, j->img, 0, 0);
 	mlx_hook(j->win, ON_KEYDOWN, 0L, key_event_handler, j);
 	mlx_hook(j->win, ON_MOUSEDOWN, 0L, j_mouse_event_handler, j);

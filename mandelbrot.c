@@ -28,27 +28,27 @@ void	draw_mandel(t_fractol *m, int x, int y, int limit)
 {
 	int	offset;
 
-	while (y < HEIGHT)
+	while (++y < HEIGHT)
 	{
 		x = 0;
-		while (x < WIDTH)
+		while (++x < WIDTH)
 		{
-			m->a = (x - WIDTH / 1.5) * (4.0 / m->scale) / WIDTH;
+			m->a = (x - WIDTH / 2.0) * (4.0 / m->scale) / WIDTH;
 			m->b = (y - HEIGHT / 2.0) * (4.0 / m->scale) / HEIGHT;
 			offset = (y * m->line_len) + (x * (m->bpp / 8));
 			m->real = 0;
 			m->im = 0;
-			limit = 100;
-			while (limit-- > 0)
+			m->color = 0;
+			limit = LIMIT;
+			while (limit-- > 0 && (m->real * m->real) + (m->im * m->im) < 4)
+			{
 				calc_mandel(m);
-			if ((m->real * m->real) + (m->im * m->im) < 4)
-				m->color = 0xFFFFFF;
-			else
-				m->color = 0x000000;
+				if ((m->real * m->real) + (m->im * m->im) < 4)
+					m->color++;
+			}
+			m->color = calc_color(m->color, LIMIT);
 			*(int *)(m->addr + offset) = m->color;
-			x++;
 		}
-		y++;
 	}
 }
 
@@ -57,7 +57,7 @@ void	zoom_mandel(t_fractol *m)
 	mlx_destroy_image(m->mlx, m->img);
 	m->img = mlx_new_image(m->mlx, WIDTH, HEIGHT);
 	m->addr = mlx_get_data_addr(m->img, &m->bpp, &m->line_len, &m->endian);
-	draw_mandel(m, 0, 0, 100);
+	draw_mandel(m, 0, 0, LIMIT);
 	mlx_put_image_to_window(m->mlx, m->win, m->img, 0, 0);
 }
 
@@ -81,7 +81,7 @@ void	mandelbrot(void)
 	m->scale = 1.0;
 	m->img = mlx_new_image(m->mlx, WIDTH, HEIGHT);
 	m->addr = mlx_get_data_addr(m->img, &m->bpp, &m->line_len, &m->endian);
-	draw_mandel(m, 0, 0, 100);
+	draw_mandel(m, 0, 0, LIMIT);
 	mlx_put_image_to_window(m->mlx, m->win, m->img, 0, 0);
 	mlx_hook(m->win, ON_KEYDOWN, 0L, key_event_handler, m);
 	mlx_hook(m->win, ON_MOUSEDOWN, 0L, m_mouse_event_handler, m);

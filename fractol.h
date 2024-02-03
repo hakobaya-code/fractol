@@ -6,7 +6,7 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 08:09:10 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/02/03 13:37:46 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/02/03 15:56:42 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ void	draw_julia(t_fractol *j, double x, double y, int limit);
 void	mandelbrot(void);
 void	draw_mandel(t_fractol *m, int x, int y, int limit);
 void	zoom_mandel(t_fractol *m);
+
+// color
+int		calc_color(int color, int limit);
 
 // free
 void	free_fractol(t_fractol *fractol);
