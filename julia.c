@@ -12,12 +12,6 @@
 
 #include "fractol.h"
 
-//void	zoom_julia(t_fractol *julia, double ratio)
-//{
-//	WIDTH *= ratio;
-//	HEIGHT *= ratio;
-
-//}
 
 void	calc_julia(t_fractol *j, int x, int y, int offset)
 {
@@ -41,8 +35,8 @@ void	draw_julia(t_fractol *j, double x, double y, int limit)
 		x = 0;
 		while (x < WIDTH)
 		{
-			j->real = -2 + (x / WIDTH * 4.0);
-			j->im = -2 + (y / HEIGHT * 4.0);
+			j->real = (-2 / j->scale)  + (x / WIDTH * 4.0) / j->scale;
+			j->im = (-2 / j->scale) + (y / HEIGHT * 4.0) / j->scale;
 			offset = (y * j->line_len) + (x * (j->bpp / 8));
 			limit = 100;
 			while (limit-- > 0)
@@ -58,11 +52,19 @@ void	draw_julia(t_fractol *j, double x, double y, int limit)
 	}
 }
 
+void	zoom_julia(t_fractol *j)
+{
+	mlx_destroy_image(j->mlx, j->img);
+	j->img = mlx_new_image(j->mlx, WIDTH, HEIGHT);
+	j->addr = mlx_get_data_addr(j->img, &j->bpp, &j->line_len, &j->endian);
+	draw_julia(j, 0, 0, 100);
+	mlx_put_image_to_window(j->mlx, j->win, j->img, 0, 0);
+}
+
 void	julia(double real, double im)
 {
 	t_fractol	*j;
 
-	printf("enter julia\n");
 	j = (t_fractol *)malloc(sizeof(t_fractol));
 	j->mlx = mlx_init();
 	if (j->mlx == NULL)
@@ -78,9 +80,9 @@ void	julia(double real, double im)
 	j->addr = mlx_get_data_addr(j->img, &j->bpp, &j->line_len, &j->endian);
 	draw_julia(j, 0, 0, 100);
 	mlx_put_image_to_window(j->mlx, j->win, j->img, 0, 0);
-	mlx_key_hook(j->win, key_hook, NULL);
-	//mlx_mouse_hook(j->win, julia_mouse_hook, NULL);
-	//mlx_destroy_window(j->mlx, j->win);
+	mlx_hook(j->win, ON_KEYDOWN, 0L, key_event_handler, j);
+	mlx_hook(j->win, ON_MOUSEDOWN, 0L, j_mouse_event_handler, j);
+	mlx_hook(j->win, ON_DESTROY, 0L, close_event_handler, j);
 	mlx_loop(j->mlx);
 	return ;
 }

@@ -6,50 +6,60 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 21:58:10 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/02/02 22:55:05 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/02/03 13:38:25 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	key_hook(int keycode, t_fractol *fractol)
+int	key_event_handler(int button, int x, int y, void *param)
 {
-	// キーイベントが発生したときの処理
-	//if (keycode == )
-	printf("key\n");
+	t_fractol	*fractol;
+
+	(void)x;
+	(void)y;
+	fractol = (t_fractol *)param;
 	return (0);
 }
 
-int	mandel_mouse_hook(int mousecode, t_fractol *mandel)
+int	m_mouse_event_handler(int button, int x, int y, void *param)
 {
-	// マウスクリックイベントが発生したときの処理
-	if (mousecode == SCROLL_UP)
-		mandel->scale *= 1.1;
-	if (mousecode == SCROLL_DOWN)
+	t_fractol	*mandel;
+
+	(void)x;
+	(void)y;
+	mandel = (t_fractol *)param;
+	if (button == SCROLL_UP)
+		mandel->scale /= 0.9;
+	if (button == SCROLL_DOWN)
 		mandel->scale *= 0.9;
-	redraw_mandel(mandel);
+	zoom_mandel(mandel);
 	return (0);
 }
 
-//int	julia_mouse_hook(int mousecode, t_fractol *julia)
-//{
-//	// マウスクリックイベントが発生したときの処理
-//	if (mousecode == SCROLL_UP)
-//		julia->scale *= 1.1;
-//	if (mousecode == SCROLL_DOWN)
-//		julia->scale *= 0.9;
-//	redraw_julia(julia);
-//	return (0);
-//}
-int	zoom_hook(t_fractol *fractol, double scale)
+int	j_mouse_event_handler(int button, int x, int y, void *param)
 {
+	t_fractol	*julia;
 
-	printf("zoom\n");
+	(void)x;
+	(void)y;
+	julia = (t_fractol *)param;
+	if (button == SCROLL_UP)
+		julia->scale /= 0.9;
+	if (button == SCROLL_DOWN)
+		julia->scale *= 0.9;
+	zoom_julia(julia);
 	return (0);
 }
 
-int	close_hook(t_fractol *fractol, int button, int x, int y)
+
+int	close_event_handler(int button, int x, int y, void *param)
 {
+	t_fractol	*fractol;
+
+	(void)x;
+	(void)y;
+	fractol = (t_fractol *)param;
 	mlx_destroy_window(fractol->mlx, fractol->win);
 	return (0);
 }

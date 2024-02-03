@@ -33,10 +33,8 @@ void	draw_mandel(t_fractol *m, int x, int y, int limit)
 		x = 0;
 		while (x < WIDTH)
 		{
-			m->a = (x - WIDTH / 2.0) * m->scale + WIDTH / 2.0;
-			m->b = (y - HEIGHT / 2.0) * m->scale + HEIGHT / 2.0;
-			//m->a = (x - WIDTH / 1.5) * 4.0 / WIDTH; // x - WIDTH / 2.0 real軸の中央、原点を設定
-			//m->b = (y - HEIGHT / 2.0) * 4.0 / HEIGHT; // y - HEIGHT / 2.0 imの中央、原点を設定
+			m->a = (x - WIDTH / 1.5) * (4.0 / m->scale) / WIDTH;
+			m->b = (y - HEIGHT / 2.0) * (4.0 / m->scale) / HEIGHT;
 			offset = (y * m->line_len) + (x * (m->bpp / 8));
 			m->real = 0;
 			m->im = 0;
@@ -54,9 +52,8 @@ void	draw_mandel(t_fractol *m, int x, int y, int limit)
 	}
 }
 
-void	redraw_mandel(t_fractol *m)
+void	zoom_mandel(t_fractol *m)
 {
-	mlx_clear_window(m->mlx, m->win);
 	mlx_destroy_image(m->mlx, m->img);
 	m->img = mlx_new_image(m->mlx, WIDTH, HEIGHT);
 	m->addr = mlx_get_data_addr(m->img, &m->bpp, &m->line_len, &m->endian);
@@ -72,6 +69,8 @@ void	mandelbrot(void)
 	int			y;
 
 	m = (t_fractol *)malloc(sizeof(t_fractol));
+	if (!m)
+		exit(1);
 	m->mlx = mlx_init();
 	if (m->mlx == NULL)
 		free_exit(m);
@@ -79,14 +78,14 @@ void	mandelbrot(void)
 	m->real = 0;
 	m->im = 0;
 	m->bpp = 32;
+	m->scale = 1.0;
 	m->img = mlx_new_image(m->mlx, WIDTH, HEIGHT);
 	m->addr = mlx_get_data_addr(m->img, &m->bpp, &m->line_len, &m->endian);
 	draw_mandel(m, 0, 0, 100);
 	mlx_put_image_to_window(m->mlx, m->win, m->img, 0, 0);
-	mlx_key_hook(m->win, key_hook, &m);
-	mlx_mouse_hook(m->win, mandel_mouse_hook, &m);
-	mlx_hook(m->win, 17, 0L, close_hook, m);
-	//mlx_destroy_window(m->mlx, m->win);
+	mlx_hook(m->win, ON_KEYDOWN, 0L, key_event_handler, m);
+	mlx_hook(m->win, ON_MOUSEDOWN, 0L, m_mouse_event_handler, m);
+	mlx_hook(m->win, ON_DESTROY, 0L, close_event_handler, m);
 	mlx_loop(m->mlx);
 	return ;
 }

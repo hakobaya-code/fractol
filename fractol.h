@@ -6,7 +6,7 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 08:09:10 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/02/02 22:55:16 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/02/03 13:37:46 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@
 // mouse
 # define LEFT_CLICK 1
 # define RIGHT_CLICK 2
-# define MIDDLE CLICK 3
-# define SCROLL_UP 4
-# define SCROLL_DOWN 5
+# define MIDDLE_CLICK 3
+# define SCROLL_DOWN 4
+# define SCROLL_UP 5
 
 # define INPUT_ERROR 0
 # define ATOF_ERROR 1
@@ -71,15 +71,17 @@ typedef struct	s_fractol {
 }				t_fractol;
 
 // hook
-int		key_hook(int keycode, t_fractol *fractol);
-int		mouse_hook(int mousecode, t_fractol *fractol);
-int		mandel_mouse_hook(int mousecode, t_fractol *mandel);
-int		zoom_hook(t_fractol *fractol, double scale);
-int		close_hook(t_fractol *fractol, int button, int x, int y);
+int		key_event_handler(int button, int x, int y, void *param);
+int		m_mouse_event_handler(int button, int x, int y, void *param);
+int		j_mouse_event_handler(int button, int x, int y, void *param);
+int		close_event_handler(int button, int x, int y, void *param);
 
 // fractol
 void	julia(double real, double imaginary);
+void	draw_julia(t_fractol *j, double x, double y, int limit);
 void	mandelbrot(void);
+void	draw_mandel(t_fractol *m, int x, int y, int limit);
+void	zoom_mandel(t_fractol *m);
 
 // free
 void	free_fractol(t_fractol *fractol);
