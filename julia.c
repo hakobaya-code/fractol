@@ -13,12 +13,10 @@
 #include "fractol.h"
 
 
-void	calc_julia(t_fractol *j, int x, int y, int offset)
+static void	calc_julia(t_fractol *j)
 {
 	double	tmp_real;
 	double	tmp_im;
-	double	real;
-	double	im;
 
 	tmp_real = (j->real * j->real) - (j->im * j->im) + j->a;
 	tmp_im = 2 * j->real * j->im + j->b;
@@ -42,7 +40,7 @@ void	draw_julia(t_fractol *j, double x, double y, int limit)
 			limit = LIMIT;
 			while (limit-- > 0 && (j->real * j->real) + (j->im * j->im) < 4)
 			{
-				calc_julia(j, x, y, offset);
+				calc_julia(j);
 				if ((j->real * j->real) + (j->im * j->im) < 4)
 					j->color++;
 			}

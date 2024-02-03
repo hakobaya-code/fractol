@@ -6,7 +6,7 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 21:58:10 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/02/03 19:41:04 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/02/03 20:03:59 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,12 @@ int	j_mouse_event_handler(int button, int x, int y, void *param)
 	return (0);
 }
 
-void	close_event_handler(t_fractol *fractol)
+int	close_event_handler(void *param)
 {
+	t_fractol	*fractol;
+
+	fractol = (t_fractol *)param;
 	mlx_destroy_window(fractol->mlx, fractol->win);
 	exit(0);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 08:09:10 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/02/03 19:41:44 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/02/03 20:03:39 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct s_fractol {
 int		key_event_handler(int keycode, void *param);
 int		m_mouse_event_handler(int button, int x, int y, void *param);
 int		j_mouse_event_handler(int button, int x, int y, void *param);
-void	close_event_handler(t_fractol *fractol);
+int		close_event_handler(void *param);
 
 // fractol
 void	julia(double real, double imaginary);
@@ -87,6 +87,7 @@ int		calc_color(int color, int limit);
 
 // free
 void	free_fractol(t_fractol *fractol);
+void	free_exit(t_fractol *fractol);
 
 // error
 void	error_handle(int index);

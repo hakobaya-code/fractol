@@ -6,7 +6,7 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 17:31:31 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/02/03 17:40:57 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:57:31 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	unsigned char	c2;
 
 	i = 0;
+	if (NULL == s1 || NULL == s2)
+		error_handle (INPUT_ERROR);
 	if (n == 0)
 		return (0);
 	c1 = (unsigned char)*s1;

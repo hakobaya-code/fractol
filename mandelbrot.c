@@ -13,7 +13,7 @@
 #include "fractol.h"
 
 
-void	calc_mandel(t_fractol *m)
+static void	calc_mandel(t_fractol *m)
 {
 	double	tmp_real;
 	double	tmp_im;
