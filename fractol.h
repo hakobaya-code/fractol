@@ -6,7 +6,7 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 08:09:10 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/02/03 15:56:42 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:41:44 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@
 # define HEIGHT 800
 
 
-typedef struct	s_fractol {
-	void	*mlx;        // MiniLibXの接続
-	void	*win;        // ウィンドウ
+typedef struct s_fractol {
+	void	*mlx;
+	void	*win;
 
 	double	real;
 	double	im;
@@ -61,24 +61,23 @@ typedef struct	s_fractol {
 	double	scale;
 	int		color;
 
-	//int		x; // pixel動かす時用 初期値0
-	//int		y; // pixel動かす時用
-	void	*img;        // 画像
-	char	*addr;       // 画像データ
-	int		bpp; // 1ピクセルあたりのビット数
-	int		line_len;    // 1行あたりのバイト数
-	int		endian;         // エンディアン情報
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
 }				t_fractol;
 
 // hook
-int		key_event_handler(int button, int x, int y, void *param);
+int		key_event_handler(int keycode, void *param);
 int		m_mouse_event_handler(int button, int x, int y, void *param);
 int		j_mouse_event_handler(int button, int x, int y, void *param);
-int		close_event_handler(int button, int x, int y, void *param);
+void	close_event_handler(t_fractol *fractol);
 
 // fractol
 void	julia(double real, double imaginary);
 void	draw_julia(t_fractol *j, double x, double y, int limit);
+void	zoom_julia(t_fractol *j);
 void	mandelbrot(void);
 void	draw_mandel(t_fractol *m, int x, int y, int limit);
 void	zoom_mandel(t_fractol *m);
@@ -94,5 +93,8 @@ void	error_handle(int index);
 
 // util
 double	ft_atof(char *str);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+void	ft_putstr_fd(char *s, int fd);
+int		ft_strlen(char *str);
 
 #endif

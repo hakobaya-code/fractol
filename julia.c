@@ -70,6 +70,8 @@ void	julia(double real, double im)
 	if (j->mlx == NULL)
 		free_exit(j);
 	j->win = mlx_new_window(j->mlx, WIDTH, HEIGHT, "Julia");
+	if (j->win == NULL)
+		free_exit(j);
 	j->a = real;
 	j->b = im;
 	j->real = 0;

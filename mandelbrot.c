@@ -64,9 +64,6 @@ void	zoom_mandel(t_fractol *m)
 void	mandelbrot(void)
 {
 	t_fractol	*m;
-	int			limit;
-	int			x;
-	int			y;
 
 	m = (t_fractol *)malloc(sizeof(t_fractol));
 	if (!m)
@@ -75,6 +72,8 @@ void	mandelbrot(void)
 	if (m->mlx == NULL)
 		free_exit(m);
 	m->win = mlx_new_window(m->mlx, WIDTH, HEIGHT, "Mandelbrot");
+	if (m->win == NULL)
+		free_exit(m);
 	m->real = 0;
 	m->im = 0;
 	m->bpp = 32;

@@ -6,46 +6,11 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 08:08:55 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/02/03 17:26:07 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:01:09 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-//int	create_trgb(int t, int r, int g, int b)
-//{
-//	return (t << 24 | r << 16 | g << 8 | b);
-//}
-
-//void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-//{
-//	char	*dst;
-
-//	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-//	*(unsigned int*)dst = color;
-//}
-
-size_t	ft_strlen(const char *s)
-{
-	int		i;
-	char	*str;
-
-	i = 0;
-	str = (char *)s;
-	while (s[i] != '\0')
-		i++;
-	return ((size_t) i);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	int	len;
-
-	if (s == NULL)
-		return ;
-	len = ft_strlen(s);
-	write(fd, s, len);
-}
 
 void	error_handle(int index)
 {
@@ -53,22 +18,20 @@ void	error_handle(int index)
 	{
 		ft_putstr_fd("ERROR :Please enter the correct letter\
 		\n[Julia] or [Mandelbrot]\n", 2);
+		ft_putstr_fd("If you want to make Juliaset, Reccomended values are\
+		\nJulia	0.32 0.043\nJulia	0.273 0.0074\nJulia	-0.156 1.032\n", 1);
 		exit(1);
 	}
 	if (index == ATOF_ERROR)
 	{
 		ft_putstr_fd("🚨ERROR🚨\nPLEASE ENTER THE CORRECT NUMBER.\
 		\n*** -2.0 < INPUT NUMBER < 2.0 ***\n", 2);
+		ft_putstr_fd("If you want to make Juliaset, Reccomended values are\
+		\n Julia 0.32 0.043\nJulia 0.27334 0.00742\nJulia -0.15652 1.03225", 1);
 		exit(1);
 	}
-
 	exit(0);
 }
-
-//void	fractol_init(t_fractol *fractol)
-//{
-
-//}
 
 int	main(int argc, char **argv)
 {
@@ -77,9 +40,11 @@ int	main(int argc, char **argv)
 
 	(void)argc;
 	(void)argv;
+	if (argc < 2)
+		error_handle(INPUT_ERROR);
 	if (argc == 2 || !(ft_strncmp(argv[1], "Mandelbrot", 11)))
 		mandelbrot();
-	else if ((argc == 4 || !(ft_strncmp(argv[1], "Julia"), 6)))
+	else if (argc == 4 || !(ft_strncmp(argv[1], "Julia", 6)))
 	{
 		real = ft_atof(argv[2]);
 		imaginary = ft_atof(argv[3]);
@@ -88,4 +53,9 @@ int	main(int argc, char **argv)
 	else
 		error_handle(INPUT_ERROR);
 	return (0);
+}
+
+__attribute__((destructor))
+static void destructor() {
+    system("leaks -q fractol");
 }

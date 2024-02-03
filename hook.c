@@ -6,19 +6,22 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 21:58:10 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/02/03 13:38:25 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:41:04 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	key_event_handler(int button, int x, int y, void *param)
+int	key_event_handler(int keycode, void *param)
 {
 	t_fractol	*fractol;
 
-	(void)x;
-	(void)y;
 	fractol = (t_fractol *)param;
+	if (keycode == ESC)
+	{
+		mlx_destroy_window(fractol->mlx, fractol->win);
+		exit(0);
+	}
 	return (0);
 }
 
@@ -33,6 +36,8 @@ int	m_mouse_event_handler(int button, int x, int y, void *param)
 		mandel->scale /= 0.9;
 	if (button == SCROLL_DOWN)
 		mandel->scale *= 0.9;
+	if (button == ON_DESTROY)
+		exit(0);
 	zoom_mandel(mandel);
 	return (0);
 }
@@ -52,14 +57,8 @@ int	j_mouse_event_handler(int button, int x, int y, void *param)
 	return (0);
 }
 
-
-int	close_event_handler(int button, int x, int y, void *param)
+void	close_event_handler(t_fractol *fractol)
 {
-	t_fractol	*fractol;
-
-	(void)x;
-	(void)y;
-	fractol = (t_fractol *)param;
 	mlx_destroy_window(fractol->mlx, fractol->win);
-	return (0);
+	exit(0);
 }
