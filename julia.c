@@ -12,7 +12,6 @@
 
 #include "fractol.h"
 
-
 static void	calc_julia(t_fractol *j)
 {
 	double	tmp_real;

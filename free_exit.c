@@ -6,7 +6,7 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 15:49:01 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/02/03 20:01:18 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/02/04 17:34:44 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,19 @@ void	error_handle(int index)
 	if (index == INPUT_ERROR)
 	{
 		ft_putstr_fd("🚨ERROR🚨\nPLEASE ENTER THE CORRECT LETTER.\
-		\n [Mandelbrot] or [Julia <num> <num>]\n", 2);
-		ft_putstr_fd("If you want to make Juliaset, Reccomended values are\
-		\nJulia	0.32 0.043\nJulia	0.273 0.0074\nJulia	-0.156 1.032\n", 1);
+		\n\n./fractol Mandelbrot \n./fractol Julia <num> <num>\n\n", 2);
+		ft_putstr_fd("*** If you want to make Juliaset ***\n	Reccomended values are\n\
+		\n   1: Julia 0.32 0.043\n   2: Julia 0.27334 0.00742\n   3: Julia -0.15652 1.03225\
+		\n\n************************************\n", 1);
 		exit(1);
 	}
 	if (index == ATOF_ERROR)
 	{
 		ft_putstr_fd("🚨ERROR🚨\nPLEASE ENTER THE CORRECT NUMBER.\
-		\n*** -2.0 < INPUT NUMBER < 2.0 ***\n", 2);
-		ft_putstr_fd("If you want to make Juliaset, Reccomended values are\
-		\n Julia 0.32 0.043\nJulia 0.27334 0.00742\nJulia -0.15652 1.03225", 1);
+		\n\n   🐩 -2.0 < INPUT NUMBER < 2.0 💭   \n\n", 2);
+		ft_putstr_fd("*** If you want to make Juliaset ***\n	Reccomended values are\n\
+		\n   1: Julia 0.32 0.043\n   2: Julia 0.27334 0.00742\n   3: Julia -0.15652 1.03225\
+		\n\n************************************\n", 1);
 		exit(1);
 	}
 	exit(0);

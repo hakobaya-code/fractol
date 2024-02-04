@@ -6,13 +6,11 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 08:08:55 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/02/03 20:07:37 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/02/04 17:43:41 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-
 
 int	main(int argc, char **argv)
 {

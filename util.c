@@ -6,7 +6,7 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 17:31:31 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/02/03 19:57:31 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/02/04 17:58:01 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,19 @@ void	ft_putstr_fd(char *s, int fd)
 		return ;
 	len = ft_strlen(s);
 	write(fd, s, len);
+}
+
+void	check_zero(char *str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 1;
+	if (str[i] == '0' && '\0' != str[j])
+	{
+		i++;
+		if (str[i] != '.')
+			error_handle(ATOF_ERROR);
+	}
 }

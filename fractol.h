@@ -6,37 +6,30 @@
 /*   By: hakobaya <hakobaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 08:09:10 by hakobaya          #+#    #+#             */
-/*   Updated: 2024/02/03 20:03:39 by hakobaya         ###   ########.fr       */
+/*   Updated: 2024/02/04 18:03:59 by hakobaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# include "minilibx-linux/mlx.h"
+# include "mlx/mlx.h"
 # include <stdio.h>
 # include <math.h>
 # include <unistd.h>
 # include <stdlib.h>
 
+// key
 # define ON_KEYDOWN 2
-# define ON_KEYUP 3
 # define ON_MOUSEDOWN 4
-# define ON_MOUSEUP 5
-# define ON_MOUSEMOVE 6
-# define FOCUS_IN 9
-# define FOCUS_OUT 10
-# define ON_EXPOSE 12
 # define ON_DESTROY 17
 # define ESC 53
 
 // mouse
-# define LEFT_CLICK 1
-# define RIGHT_CLICK 2
-# define MIDDLE_CLICK 3
 # define SCROLL_DOWN 4
 # define SCROLL_UP 5
 
+// error
 # define INPUT_ERROR 0
 # define ATOF_ERROR 1
 
@@ -44,10 +37,8 @@
 # define FALSE 0
 
 # define LIMIT 100
-
 # define WIDTH 800
 # define HEIGHT 800
-
 
 typedef struct s_fractol {
 	void	*mlx;
@@ -97,5 +88,6 @@ double	ft_atof(char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_putstr_fd(char *s, int fd);
 int		ft_strlen(char *str);
+void	check_zero(char *str);
 
 #endif
